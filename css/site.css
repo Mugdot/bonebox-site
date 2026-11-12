@@ -1,0 +1,176 @@
+/* BONEBOX site. One dark world on purpose: the game is bone on near-black. */
+:root {
+  --ink: #0b0710;
+  --panel: #140c1c;
+  --room: #2a1d33;
+  --line: #3a2a48;
+  --bone: #f4e8d0;
+  --bone-mid: #d8c0a0;
+  --bone-dim: #9a8468;
+  --soft: #b8b0c0;
+  --dim: #7a7088;
+  --gold: #f2d25e;
+  --violet: #a868d0;
+  --cyan: #8ee0f0;
+  --red: #e04848;
+  --body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--ink); }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font: 17px/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--bone); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ---- header ---- */
+.top { border-bottom: 2px solid var(--line); background: var(--panel); }
+.top .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; padding-top: 14px; padding-bottom: 14px; }
+.brand { display: inline-flex; line-height: 0; border: 2px solid var(--bone); padding: 5px 7px; }
+.brand:hover { border-color: var(--gold); }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-left: auto; }
+.nav a {
+  font: 13px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--soft);
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--bone); }
+.nav a[aria-current="page"] { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ---- pixel lettering (drawn by js/pixel.js from the game's own font) ---- */
+.px { display: block; line-height: 0; }
+.px svg { display: block; max-width: 100%; height: auto; shape-rendering: crispEdges; }
+.px .px-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Before the script runs (or without it) the words are still there, as words. */
+.px:not(.px-done) { font: 700 28px/1.2 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ---- page head ---- */
+.page-head { padding: 44px 0 8px; }
+.page-head h1 { margin: 0 0 14px; color: var(--bone); }
+.page-head .lede { margin: 0; color: var(--soft); max-width: 62ch; }
+.bone-rule { margin: 22px 0 0; line-height: 0; }
+.bone-rule svg { shape-rendering: crispEdges; }
+
+/* ---- prose ---- */
+main { padding-bottom: 72px; }
+.prose { max-width: 68ch; }
+.prose h2 {
+  margin: 44px 0 10px;
+  font: 700 14px/1.3 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.prose h3 { margin: 26px 0 6px; font-size: 17px; color: var(--bone); }
+.prose p, .prose li { color: var(--soft); }
+.prose strong { color: var(--bone); font-weight: 600; }
+.prose ul { padding-left: 20px; }
+.prose li { margin: 4px 0; }
+.note { border-left: 3px solid var(--violet); padding: 2px 0 2px 14px; margin: 18px 0; }
+.note p { margin: 6px 0; }
+.stamp { font: 13px/1.4 var(--mono); color: var(--dim); letter-spacing: 0.04em; }
+
+/* ---- tables (controls) ---- */
+.table-scroll { overflow-x: auto; margin: 12px 0 4px; }
+table { border-collapse: collapse; width: 100%; min-width: 440px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 700 12px/1.3 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+td { color: var(--soft); }
+td:first-child { color: var(--bone); white-space: nowrap; }
+kbd {
+  display: inline-block;
+  font: 12px/1 var(--mono);
+  color: var(--ink);
+  background: var(--bone-mid);
+  border-bottom: 2px solid var(--bone-dim);
+  padding: 4px 6px 3px;
+  margin: 1px 2px 1px 0;
+}
+
+/* ---- home ---- */
+.hero { padding: 56px 0 28px; }
+.hero .logo { display: inline-block; border: 4px solid var(--bone); padding: 14px 18px; line-height: 0; max-width: 100%; }
+.hero .tag { margin: 16px 0 0; }
+.hero .pitch { margin: 22px 0 0; max-width: 56ch; font-size: 19px; color: var(--soft); }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 26px; }
+.cta {
+  display: inline-block;
+  font: 700 14px/1 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--gold);
+  border-bottom: 4px solid #b8922a;
+  padding: 14px 18px 11px;
+}
+.cta:hover { color: var(--ink); background: var(--bone); border-bottom-color: var(--bone-dim); }
+.cta.soon { background: var(--room); color: var(--bone-mid); border-bottom-color: var(--line); cursor: default; }
+.cta-note { font: 13px/1.4 var(--mono); color: var(--dim); }
+
+.shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 34px 0 0; }
+.shots figure { margin: 0; border: 2px solid var(--line); background: #000; line-height: 0; }
+.shots figure:first-child { grid-column: 1 / -1; }
+.shots img { width: 100%; height: auto; image-rendering: pixelated; display: block; }
+
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 40px 0 0; border: 2px solid var(--line); }
+.fact { padding: 18px 16px; border-right: 2px solid var(--line); }
+.fact:last-child { border-right: 0; }
+.fact .n { color: var(--gold); margin-bottom: 8px; }
+.fact p { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.45; }
+
+.cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 36px; margin-top: 8px; }
+.cols section h2 { margin-top: 34px; }
+
+/* ---- stats ---- */
+.numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 2px solid var(--line); margin-top: 14px; }
+.numbers .cell { padding: 16px; border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); }
+.numbers .cell:nth-child(3n) { border-right: 0; }
+.numbers .cell:nth-last-child(-n + 3) { border-bottom: 0; }
+.numbers .n { color: var(--bone); margin-bottom: 8px; }
+.numbers .l { font: 12px/1.35 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+.numbers.mine .n { color: var(--gold); }
+.empty { border: 2px dashed var(--line); padding: 18px 16px; color: var(--soft); margin-top: 14px; }
+.empty p { margin: 0; }
+
+/* ---- footer ---- */
+.foot { border-top: 2px solid var(--line); background: var(--panel); padding: 22px 0 28px; }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; }
+.foot a, .foot span { font: 12px/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); text-decoration: none; }
+.foot a:hover { color: var(--bone); }
+.foot .right { margin-left: auto; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .nav { margin-left: 0; }
+  .hero { padding-top: 36px; }
+  .shots { grid-template-columns: 1fr; }
+  .facts, .numbers { grid-template-columns: 1fr; }
+  .fact { border-right: 0; border-bottom: 2px solid var(--line); }
+  .fact:last-child { border-bottom: 0; }
+  .numbers .cell, .numbers .cell:nth-child(3n) { border-right: 0; border-bottom: 2px solid var(--line); }
+  .numbers .cell:nth-last-child(-n + 3) { border-bottom: 2px solid var(--line); }
+  .numbers .cell:last-child { border-bottom: 0; }
+  .cols { grid-template-columns: 1fr; }
+  .foot .right { margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

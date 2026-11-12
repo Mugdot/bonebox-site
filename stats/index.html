@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BONEBOX Stats</title>
+<meta name="description" content="BONEBOX in numbers, and your own records if you have played in this browser.">
+<meta name="theme-color" content="#0b0710">
+<link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="BONEBOX home"><span class="px" data-scale="2">BONEBOX</span></a>
+    <nav class="nav" aria-label="Site">
+        <a href="../">Game</a>
+        <a href="../manual/">Manual</a>
+        <a href="../stats/" aria-current="page">Stats</a>
+        <a href="../forum/">Forum</a>
+        <a href="../health/">Health</a>
+        <a href="../privacy/">Privacy</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <h1 class="px" data-scale="4">STATS</h1>
+      <p class="lede">The game in numbers, and your own records if you have played in this browser.</p>
+      <div class="bone-rule" data-scale="3"></div>
+    </div>
+    <div class="prose" style="max-width:none">
+
+      <h2>The game in numbers</h2>
+      <div class="numbers">
+        <div class="cell"><div class="n px" data-scale="3">300</div><div class="l">Playable characters</div></div>
+        <div class="cell"><div class="n px" data-scale="3">20</div><div class="l">Dungeons</div></div>
+        <div class="cell"><div class="n px" data-scale="3">100</div><div class="l">Levels in a full run</div></div>
+        <div class="cell"><div class="n px" data-scale="3">140</div><div class="l">Kinds of enemy</div></div>
+        <div class="cell"><div class="n px" data-scale="3">100</div><div class="l">Mini-bosses</div></div>
+        <div class="cell"><div class="n px" data-scale="3">20</div><div class="l">Big bosses</div></div>
+        <div class="cell"><div class="n px" data-scale="3">450</div><div class="l">Co-op bonds</div></div>
+        <div class="cell"><div class="n px" data-scale="3">40</div><div class="l">Achievements</div></div>
+        <div class="cell"><div class="n px" data-scale="3">0</div><div class="l">Image and audio files</div></div>
+      </div>
+
+      <h2>Your records</h2>
+      <div id="mine-empty" class="empty"><p>No BONEBOX save was found in this browser. Records from the web version of the game show up here once you have played it in this browser. They are read from your own device and never sent anywhere.</p></div>
+      <div id="mine" class="numbers mine" hidden>
+        <div class="cell"><div class="n px" data-scale="3" id="r-runs">0</div><div class="l">Runs started</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-deaths">0</div><div class="l">Deaths</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-best">-</div><div class="l">Deepest point reached</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-beaten">0</div><div class="l">Bosses defeated</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-spared">0</div><div class="l">Bosses spared</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-items">0</div><div class="l">Items found</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-ach">0</div><div class="l">Achievements, of 40</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-chars">0</div><div class="l">Characters unlocked</div></div>
+        <div class="cell"><div class="n px" data-scale="3" id="r-stories">0</div><div class="l">Backstories finished</div></div>
+      </div>
+      <p class="stamp" id="mine-note" hidden>Read from this browser's own save. Nothing on this page is uploaded.</p>
+    </div>
+  </div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <a href="../manual/">Manual</a>
+    <a href="../stats/">Stats</a>
+    <a href="../forum/">Forum</a>
+    <a href="../health/">Health warning</a>
+    <a href="../privacy/">Privacy policy</a>
+    <span class="right">BONEBOX &copy; 2026 Mugdot</span>
+  </div>
+</footer>
+<script src="../js/pixel-glyphs.js"></script>
+<script src="../js/pixel.js"></script>
+<script>
+/* Reads the web game's save from this browser, if there is one. Read-only; nothing leaves the device. */
+(function () {
+  var save;
+  try { save = JSON.parse(localStorage.getItem('bonebox-save') || 'null'); } catch (e) { save = null; }
+  if (!save || typeof save !== 'object') return;
+  var rec = save.records || {};
+  var prog = save.progress || {};
+  var count = function (v) { return Array.isArray(v) ? v.length : 0; };
+  var num = function (v) { return typeof v === 'number' && isFinite(v) ? Math.max(0, Math.floor(v)) : 0; };
+  var best = num(rec.bestFloor);
+  var set = function (id, text) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = String(text);
+    el.classList.remove('px-done');
+    window.BONEBOX_PIXEL.pixelate(el);
+  };
+  set('r-runs', num(rec.runs));
+  set('r-deaths', num(rec.deaths));
+  set('r-best', best > 0 ? 'D' + Math.ceil(best / 5) + ' L' + (((best - 1) % 5) + 1) : '-');
+  set('r-beaten', count(rec.bossesDefeated));
+  set('r-spared', count(rec.bossesSpared));
+  set('r-items', count(rec.itemsFound));
+  set('r-ach', count(prog.achievements));
+  set('r-chars', count(prog.characters) || count(prog.unlocked));
+  set('r-stories', count(prog.stories));
+  document.getElementById('mine').hidden = false;
+  document.getElementById('mine-note').hidden = false;
+  document.getElementById('mine-empty').hidden = true;
+})();
+</script>
+</body>
+</html>
